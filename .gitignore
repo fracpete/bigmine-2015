@@ -124,3 +124,10 @@ sympy-plots-for-*.tex/
 # WinEdt
 *.bak
 *.sav
+
+# exclude others
+paper/bigmine15-adams-paper.pdf
+paper/bigmine15-adams-paper.kilepr
+*~
+*.swp
+
