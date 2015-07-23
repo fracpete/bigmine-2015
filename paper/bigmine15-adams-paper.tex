@@ -17,6 +17,7 @@
 %\usepackage[load-configurations=version-1]{siunitx} % newer version
 %\usepackage{siunitx}
 
+\usepackage[official]{eurosym}
 \usepackage{tikz}
 
 \newcommand{\icon}[1]{\tikz[baseline=-3pt] \node[inner sep=0pt,outer sep=0pt]{\includegraphics[height=1.1em]{images/#1}};}
@@ -92,7 +93,7 @@ The origins of ADAMS lie in academia, with the project getting developed to proc
 The remainder of the paper is structured as follows: first, a short introduction into the framework is given. Second, a short overview of some of the research areas that it can be used for. Third, a commercial application that is based on the framework.
 
 \section{Framework}
-Workflow systems, like RapidMiner, KNIME or Kepler, use a canvas approach for laying out the operators and combining them by connecting them. On the one hand, this is a very intuitive approach, since the user can see how the data flows. On the other hand, this can make modifying the flow a tedious process, as the authors experienced: disconnecting operators, moving them around, inserting other operators, reconnecting operators. Despite birds-eye-view and meta-operators that group several operators together, the canvas approach can quickly become hard to comprehend and doesn't seem to scale well into hundreds or even thousands of operators.
+Workflow systems, like RapidMiner, KNIME or Kepler, use a canvas approach for placing the operators and combining them by connecting them. On the one hand, this is a very intuitive approach, since the user can see how the data flows. On the other hand, this can make modifying the flow a tedious process, as the authors experienced: disconnecting operators, moving them around, inserting other operators, reconnecting operators. Despite birds-eye-view and meta-operators that group several operators together, the canvas approach can quickly become hard to comprehend and doesn't seem to scale well into hundreds or even thousands of operators.
 
 \begin{figure}[htb]
   \begin{minipage}[b]{0.5\linewidth}
@@ -109,26 +110,28 @@ Workflow systems, like RapidMiner, KNIME or Kepler, use a canvas approach for la
   \end{minipage}
 \end{figure}
 
-ADAMS forfeits some of the advantages and asthetics of this canvas approach to provide a more compact layout (see Figures \ref{example_flow} and \ref{example_output} for an example flow with associated output), using a simple tree structure instead for organizing its operators (called actors). The nesting of nodes in the tree resembles the nesting of actors programmatically, based on whether the actor is a primitive one (e.g., filtering a dataset) or one that manages other actors (e.g., grouping actors to be executed sequentially). So-called control actors determine data flow and flow execution: a \icon{Branch} Branch actor forwards the incoming data to all of its sub-actors, i.e., the sub-branches; a \icon{Tee}~Tee actor forkes off data passing through and forwards it to its sub-flow; a \icon{Stop}~Stop actor simply stops the flow execution. The four types of combinations that result from input and output handling, are as follows: \icon{CallableActors}~Standalone, which has no input nor output, e.g., a database connection; \icon{MOAStream}~Source, which only generates output; \icon{MOAClassifierEvaluation}~Transformer, which takes input and generates output; \icon{SequencePlotter}~Sink, which only consumes data. By using data flow control actors, it is possible to get rid of explicit connections between the actors. However, a tree structure only handles 1-to-n connections. In order to simulate n-to-m semantics, several techniques are implemented: use of containers to combine multiple outputs; support for variables, to be attached to parameters of actors or simply used for calculations; internal key-value storage for storing, retrieving and updating data in multiple locations; callable actors can be invoked from anywhere in the flow. Interoperability of actors is statically checked by comparing the types of data that a preceding actor can output and what types the following actor can handle. This type information in combination with the context induced by the tree structure, makes it possible to limit the actors that can be placed within this context. Furthermore, context-aware rules can be specified for common sequences of actors (load dataset $\rightarrow$ set class attribute $\rightarrow$ cross-validate dataset $\rightarrow$ output results) aiding the user in creating flows more rapidly.
+ADAMS forfeits some of the advantages and asthetics of this canvas approach to provide a more compact layout (see Figures \ref{example_flow} and \ref{example_output} for an example flow with associated output), using a simple tree structure instead for organizing its operators (called actors). The nesting of nodes in the tree resembles the nesting of actors programmatically, based on whether the actor is a primitive one (e.g., filtering a dataset) or one that manages other actors (e.g., grouping actors to be executed sequentially). So-called control actors determine data flow and flow execution: a \icon{Branch} Branch actor forwards the incoming data to all of its sub-actors, i.e., the sub-branches; a \icon{Sequence}~Sequence actor executes its sub-actors one-by-one using the output of one actor as the input for the next one. The four types of combinations that result from input and output handling, are as follows: \icon{CallableActors}~Standalone, which has no input nor output, e.g., a database connection; \icon{MOAStream}~Source, which only generates output; \icon{MOAClassifierEvaluation}~Transformer, which takes input and generates output; \icon{SequencePlotter}~Sink, which only consumes data. By using data flow control actors, it is possible to get rid of explicit connections between the actors. However, a tree structure only handles 1-to-n connections. In order to simulate n-to-m semantics, several techniques are implemented: use of containers to combine multiple outputs; support for variables, to be attached to parameters of actors or simply used for calculations; internal key-value storage for storing, retrieving and updating data in multiple locations; callable actors can be invoked from anywhere in the flow. Interoperability of actors is statically checked by comparing the types of data that a preceding actor can output and what types the following actor can handle. This type information in combination with the context induced by the tree structure, makes it possible to limit the actors that can be placed within this context. Furthermore, context-aware rules can be specified for common sequences of actors (e.g., load dataset $\rightarrow$ set class attribute $\rightarrow$ cross-validate dataset $\rightarrow$ output results) aiding the user in creating flows more rapidly.
 
 \section{Research}
+
 - moa: stream analysis, filtering, visualization
 - moa: classification, regression, clustering
 - twitter: collecting of tweets using public API, replay of tweets for testing/comparing different algorithms (same stream!)
 - video analysis (webcam/movie): object tracking for rat monitoring (upcoming with Biology department)
 
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=10.0cm]{images/object_tracking_mouse.png}
+  \caption{Tracking of mice to determine movement profile.}
+  \label{object_tracking_mouse}
+\end{figure}
+
+
 \section{Industry}
-spectral analysis
-\begin{itemize}
- \item meta-flows, flow generators
- \item raw xrf 10k att, mir 2k, nir 1.5k
- \item nir model 150k instances (soil)
- \item soil season 2-3k/d
- \item num models 250 models (soil/plant)
- \item savings: nir 17million euro/a, soil season 30million euro/a (every 4 years)
- \item since 2006 in place
-\end{itemize}
-\cite{mlmatters}
+One of our commercial applications based on the ADAMS framework is used for spectral analysis, i.e., near-infrared (NIR), mid-infrared (MIR) and X-ray fluorescence (XRF). One of our customers, BLGG AgroXpertus\footnote{\url{http://blgg.agroxpertus.nl/}{}}, is a large environmental laboratory in Europe with multiple sites across Europe. Traditionally, a laboratory analyzes plant and soil samples using wet chemistry, which not only includes the analysis itself, which can take up to a week, but also a lengthy sample preparation process (e.g., drying and grinding). However, analyzing the samples in tandem with a spectral technique, it is possible to build regression models to predict the various concentrations that are determined with wet chemistry. The number of data points per raw spectrum depends on the method and instrument, but is roughly 10,000 for XRF, 2,000 for MIR and 1,500 for NIR. The largest model for NIR is for soil and encompasses about 150,000 spectra. Altogether, BLGG uses about 250 different models for predicting the various properties. During normal operation, 1,000 samples are processed each data, but during soil season (per legislation, every farmer in the Netherlands has to send in samples every four years) this goes up to 2-3,000 per day. The system has been in place since 2006 and saves them, at the time of writing, 17 million~\euro{} per annum and 30 million~\euro{} per annum during soil season, by simply reducing the number of samples that need to go to wet chemistry for analysis and being able to scale up their operations. This is a good example for Kiri Wagstaff's \textit{Impact Challenge ``\$100M saved through improved decision making provided by an ML system''} that she posed in 2012 for \textit{machine learning that matters} (\cite{wagstaff}).
+
+One difference to the default ADAMS framework is, that this system uses meta-flows. With these meta-flows, the customer simply defines certain properties for cleaning, modelling and evaluation. So-called generators then take these settings and turn them into worker flows that are then used perform all the various low-level steps for all the different models.
 
 \acks{The authors would like to thank the organizers, especially Albert Bifet, for inviting us to present our work.}
 
