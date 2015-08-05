@@ -1,5 +1,5 @@
 # Project: adams
-# Date: 2015-08-04 16:59:27
+# Date: 2015-08-05 22:16:43
 # User: fracpete
 #
 adams.flow.control.Flow
@@ -13,6 +13,10 @@ adams.flow.control.Flow
 					Frame
 					-short-title
 					true
+					-width
+					800
+					-height
+					600
 					-writer
 						adams.gui.print.NullWriter
 					-zoom
@@ -141,6 +145,8 @@ adams.flow.control.Flow
 								adams.flow.sink.ImageViewer
 									-writer
 										adams.gui.print.NullWriter
+									-zoom
+									-1.0
 									-selection-processor
 										adams.gui.visualization.image.selection.SelectObjectToTrack
 									-selection-box-color
@@ -185,20 +191,8 @@ adams.flow.control.Flow
 								adams.flow.transformer.ImageInfo
 							-tee
 								adams.flow.transformer.SetVariable
-									-name
-									SetVariable-1
 									-var-name
 									width
-							-tee
-								adams.flow.transformer.MathExpression
-									-expression
-									X / @{hm_factor}
-									-round-output
-									true
-							-tee
-								adams.flow.transformer.SetVariable
-									-var-name
-									hwidth
 					-tee
 						adams.flow.control.Tee
 							-name
@@ -209,20 +203,8 @@ adams.flow.control.Flow
 									HEIGHT
 							-tee
 								adams.flow.transformer.SetVariable
-									-name
-									SetVariable-1
 									-var-name
 									height
-							-tee
-								adams.flow.transformer.MathExpression
-									-expression
-									X / @{hm_factor}
-									-round-output
-									true
-							-tee
-								adams.flow.transformer.SetVariable
-									-var-name
-									hheight
 					-tee
 						adams.flow.control.Trigger
 							-name
@@ -315,26 +297,6 @@ adams.flow.control.Flow
 															0-based to 1-based
 															-var-name
 															x
-													-tee
-														adams.flow.control.Tee
-															-name
-															x for heatmap
-															-tee
-																adams.flow.transformer.MathExpression
-																	-expression
-																	X / @{hm_factor}
-																	-round-output
-																	true
-															-tee
-																adams.flow.transformer.SetVariable
-																	-var-name
-																	xh
-															-tee
-																adams.flow.transformer.IncVariable
-																	-annotation
-																	0-based to 1-based
-																	-var-name
-																	xh
 											-tee
 												adams.flow.control.Tee
 													-name
@@ -361,26 +323,6 @@ adams.flow.control.Flow
 															0-based to 1-based
 															-var-name
 															y
-													-tee
-														adams.flow.control.Tee
-															-name
-															y for heatmap
-															-tee
-																adams.flow.transformer.MathExpression
-																	-expression
-																	X / @{hm_factor}
-																	-round-output
-																	true
-															-tee
-																adams.flow.transformer.SetVariable
-																	-var-name
-																	yh
-															-tee
-																adams.flow.transformer.IncVariable
-																	-annotation
-																	0-based to 1-based
-																	-var-name
-																	yh
 									-actor
 										adams.flow.control.Trigger
 											-name

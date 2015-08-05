@@ -1,5 +1,5 @@
 # Project: adams
-# Date: 2015-07-23 12:08:41
+# Date: 2015-08-05 22:12:59
 # User: fracpete
 #
 adams.flow.control.Flow
@@ -34,8 +34,6 @@ adams.flow.control.Flow
 							-writer
 								adams.gui.print.NullWriter
 							-measure
-							F1
-							-measure
 							SSQ
 			-branch
 				adams.flow.control.Sequence
@@ -59,8 +57,6 @@ adams.flow.control.Flow
 							-3
 							-writer
 								adams.gui.print.NullWriter
-							-measure
-							F1
 							-measure
 							SSQ
 	-flow-execution-listener

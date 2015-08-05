@@ -1,5 +1,5 @@
 # Project: adams
-# Date: 2015-08-04 16:39:13
+# Date: 2015-08-05 22:11:31
 # User: fracpete
 #
 adams.flow.control.Flow
@@ -149,8 +149,6 @@ adams.flow.control.Flow
 				adams.flow.source.MOAClassifierSetup
 					-name
 					MOAClassifier
-					-classifier
-					moa.classifiers.trees.HoeffdingTree
 	-actor
 		adams.flow.source.MOAStream
 			-stream
@@ -199,6 +197,8 @@ adams.flow.control.Flow
 										adams.flow.sink.CallableSink
 											-callable
 											Percent correct
+							-num-threads
+							1
 			-branch
 				adams.flow.control.Sequence
 					-name
@@ -247,6 +247,8 @@ adams.flow.control.Flow
 										adams.flow.sink.CallableSink
 											-callable
 											Percent correct
+							-num-threads
+							1
 			-branch
 				adams.flow.control.Sequence
 					-name
@@ -295,6 +297,10 @@ adams.flow.control.Flow
 										adams.flow.sink.CallableSink
 											-callable
 											Percent correct
+							-num-threads
+							1
+			-num-threads
+			1
 	-flow-execution-listener
 		adams.flow.execution.NullListener
 
