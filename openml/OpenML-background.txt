@@ -1,0 +1,142 @@
+OpenML aims to create a frictionless, collaborative environment for exploring
+machine learning
+
+* Data sets and workflows from various sources analysed and organized online
+ for easy access
+
+* Integrated into machine learning environments for automated experimentation,
+  logging, and sharing
+
+* Fully reproducible and organized results (e.g. models, predictions) you can
+  build on and compare against
+
+* Share your work with the world or within circles of trusted researchers
+
+* Make your work more visible and easily citable
+
+* Tools to help you design and optimize workflows
+
+In short, OpenML makes it easy to access data, connect to the right people, and
+automate experimentation, so that you can focus on the data science.
+
+Data
+----
+New data sets can be uploaded through the website, programmatically, or using
+web services. Data hosted elsewhere can be referenced by a URL pointing to a
+landing page or web service. OpenML keeps track of versioning as data sets
+evolve.
+
+To ensure data interoperability, we work with a limited number of data formats.
+For these formats, OpenML will automatically compute a large array of data
+characteristics. These are used to visualize the data online, to make it easier
+to find data of interest, and to learn which data analysis methods are most
+suited on which types of data.
+
+Every data set has a dedicated page on OpenML, including links to every study
+it is used in, all obtained results, and room for discussions.
+
+Tasks
+-----
+To collaborate, we must also agree on expected outputs and scientific
+protocols. Tasks express exactly which input data is given and which outputs
+should be returned. For instance, classification tasks state cross-validation
+procedures and labeled input data as inputs, and require predictions as
+outputs.
+
+Tasks are similar to data mining challenges, except that they are
+collaborative: scientists (and students) are free to build on the results of
+others. Tasks are also machine-readable so that tools can interpret them,
+download all data automatically and use the correct procedures to produce
+results.
+
+Tasks are created by first defining task types in community discussions. Next,
+tasks are created once, and can then be downloaded and solved by anyone.
+When needed, OpenML provides additional support such as server-side
+evaluations to ensure that all submitted results are easily comparable.
+
+Each tasks has a dedicated page on OpenML including an overview of all shared
+results, visualisations, leaderboards, and community discussions.
+
+Flows
+-----
+Flows are implementations of single algorithms, workflows, or scripts. Ideally,
+they can take a task ID as input to run experiments. Flows are uploaded
+to OpenML through the website, programmatically, or using web services.
+You can upload code or reference it by a URL to an open source platform
+such as GitHub. OpenML keeps track of versioning as code evolves.
+
+Data scientists are encouraged to add descriptions for the (hyper)parameters of
+each flow. This will enable tools to automatically tune these parameters. Flows
+can also be annotated to explain capabilities and limitations, or to outline
+their structure.
+
+Each flow has a dedicated page on OpenML including an overview of its results
+over various tasks, and a discussion section.
+
+Runs
+----
+Runs are applications of flows on a specific task. They are submitted
+automatically by machine learning environments, using web services, or through
+the website. Runs are fully reproducible and OpenML organizes them into a
+coherent whole based on the underlying tasks, flows, and authors.
+
+Each run has its own page, listing all uploaded results as well as server-side
+evaluations and visualisations. Runtimes and machine benchmarks are typically
+also provided.
+
+OpenML also allows you to compare, search and visualize all combined results,
+and link them to all details of the underlying flows, tasks, and data
+sets. All data can also be downloaded from the website or imported
+directly into machine learning environments to visualise or analyse it
+further.
+
+Plugins
+-------
+OpenML is deeply integrated in several popular machine learning environments,
+so that it can be used out of the box. This means you can just give the
+environment a list of task ids, and it will automatically download all
+data, use all required procedures to ensure the correctness of the
+results, and upload all details to make the result reproducible. You
+just need to design and run your workflows, and the environment will
+upload all results to OpenML in the background, which will organize all
+results online.
+
+Currently, OpenML is integrated, or being integrated, into the following
+environments. Follow the links to detailed instructions.
+
+* WEKA, Waikato Environment for Knowledge Analysis
+* MOA, Massive Online Analysis
+* mlr, Machine Learning in R
+* RapidMiner
+
+Programming APIs
+----------------
+If you want to integrate OpenML into your own tools, we offer several
+language-specific API's, so you can easily interact with OpenML to list,
+download and upload data sets, tasks, flows and runs. For instance,
+downloading a task with the Java API will give you a Java object containing
+all data and information needed to execute that task. We are currently
+offering the following API's:
+
+* Java
+* R
+* Python
+
+REST APIs
+---------
+If the above solutions are not sufficient, OpenML also offers a RESTful Web API
+which allows you to talk to OpenML directly. Most communication is done using
+XML, but we also offer JSON endpoints for convenience.
+
+* REST Tutorial
+* List of REST services
+* JSON Endpoints
+
+Developers
+----------
+OpenML is an open source project, hosted on GitHub, and maintained by a very
+active community of developers. We welcome everybody to contribute to OpenML,
+and are glad to help you make optimal use of OpenML in your research.
+
+* Information for developers
+
